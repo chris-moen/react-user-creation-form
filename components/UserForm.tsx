@@ -1,12 +1,18 @@
 import { FC, useState, useEffect } from 'react';
+import { resourceLimits } from 'worker_threads';
 
-import { StatesData, SelectAPIResponse } from '../models';
+import { StatesData, SelectAPIResponse, UserAPIPostData } from '../models';
 
 const UserForm: FC<{
     className?: string;
 }> = ({ className }) => {
     const [occupations, setOccupations] = useState<string[]>([]);
     const [states, setStates] = useState<StatesData[]>([]);
+    const [userName, setUserName] = useState<string>('');
+    const [userEmail, setUserEmail] = useState<string>('');
+    const [userPassword, setUserPassword] = useState<string>('');
+    const [userOccupation, setUserOccupation] = useState<string>('');
+    const [userState, setUserState] = useState<string>('');
 
     useEffect(() => {
         void getSelectData();
@@ -20,6 +26,34 @@ const UserForm: FC<{
         setStates(json.states);
     }
 
+    async function addUser() {
+        const userData: UserAPIPostData = {
+            ...(userName && { name: userName }),
+            ...(userEmail && { email: userEmail }),
+            ...(userPassword && { password: userPassword }),
+            ...(userOccupation && {occupation: userOccupation, }),
+            ...(userState && { state: userState }),
+        };
+
+        try {
+            const res = await fetch('https://frontend-take-home.fetchrewards.com/form', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(userData),
+            });
+
+            if (res.ok && res.status === 200) {
+                console.log('USER SUCCESS!!!', userData);
+            } else {
+                throw new Error('Invalid User Submission');
+            }
+       } catch(err) {
+           console.error(err);
+       }
+    }
+
     return (
         <div className="md:w-3/5 max-w-md">
 
@@ -29,7 +63,7 @@ const UserForm: FC<{
                 className="bg-gray-200 rounded-xl p-3"
                 onSubmit={(e) => {
                     e.preventDefault();
-                    console.log('FORM SUBMIT!!!');
+                    void addUser();
                 }}
             >
                 <label className="form-block" htmlFor="full_name">
@@ -39,6 +73,7 @@ const UserForm: FC<{
                         className="form-input"
                         type="text"
                         placeholder="John Doe"
+                        onChange={(e) => setUserName(e.target.value)}
                     />
                 </label>
 
@@ -49,6 +84,7 @@ const UserForm: FC<{
                         className="form-input"
                         type="email"
                         placeholder="name@domain.com"
+                        onChange={(e) => setUserEmail(e.target.value)}
                     />
                 </label>
 
@@ -58,7 +94,7 @@ const UserForm: FC<{
                         id="password"
                         className="form-input"
                         type="password"
-                        placeholder=""
+                        onChange={(e) => setUserPassword(e.target.value)}
                     />
                 </label>
 
@@ -68,6 +104,8 @@ const UserForm: FC<{
                         id="occupation" 
                         className="form-input"
                         disabled={occupations.length === 0}
+                        onChange={(e) => setUserOccupation(e.target.value)}
+                        onBlur={(e) => setUserOccupation(e.target.value)}
                     >
                         <option />
                         {occupations.map((occ) => (
@@ -84,6 +122,8 @@ const UserForm: FC<{
                         id="state" 
                         className="form-input"
                         disabled={states.length === 0}
+                        onChange={(e) => setUserState(e.target.value)}
+                        onBlur={(e) => setUserState(e.target.value)}
                     >
                         <option />
                         {states.map((st) => (
