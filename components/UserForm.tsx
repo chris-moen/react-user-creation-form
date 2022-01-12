@@ -1,4 +1,4 @@
-import { FC, useState, useEffect } from 'react';
+import React, { FC, useState, useEffect } from 'react';
 
 import { StatesData, SelectAPIResponse, UserAPIPostData } from '../models';
 
@@ -77,7 +77,7 @@ const UserForm: FC<{
                 />
             : (
                 <form
-                className="bg-gray-200 rounded-xl p-3 md: p-5"
+                className="bg-blue-100 border border-gray-400 rounded-xl p-3 md:p-5"
                 onSubmit={(e) => {
                     e.preventDefault();
                     setIsSubmitting(true);
@@ -154,7 +154,7 @@ const UserForm: FC<{
                     </label>
                     
                     <button 
-                        className="px-10 py-2 my-4 bg-gray-800 text-white rounded hover:bg-gray-600 w-full md:w-3/5 disabled:opacity-25"
+                        className="px-10 py-2 mt-4 bg-blue-900 text-white rounded hover:bg-blue-600 w-full md:w-4/5 disabled:opacity-25"
                         disabled={!isUserData(userData as UserAPIPostData)} 
                     >
                         {isSubmitting ? <Spinner /> : 'Add User'}
