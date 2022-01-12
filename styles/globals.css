@@ -1,3 +1,15 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+    .form-block {
+        @apply block w-full mb-4 flex items-center text-left;
+    }
+    .form-label {
+        @apply grow;
+    }
+    .form-input {
+        @apply w-2/3 rounded-md;
+    }
+}
