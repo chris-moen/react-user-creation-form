@@ -12,11 +12,11 @@ export default function Home() {
       </Head>
 
       <main className="flex flex-col items-center justify-center w-full flex-1 px-4 md:px-10 text-center">
-        <UserForm />
+        <UserForm className="md:w-3/5 max-w-md" />
       </main>
 
       <footer className="flex items-center justify-center w-full h-24 border-t">
-        <div>(Footer)</div>
+        <div><em>&copy; nobody</em></div>
       </footer>
     </div>
   )

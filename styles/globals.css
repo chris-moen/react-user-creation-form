@@ -2,7 +2,16 @@
 @tailwind components;
 @tailwind utilities;
 
+
 @layer components {
+    a {
+        @apply text-blue-500;
+    }
+
+    p {
+        @apply mb-3
+    }
+
     .form-block {
         @apply block w-full mb-4 flex items-center text-left;
     }

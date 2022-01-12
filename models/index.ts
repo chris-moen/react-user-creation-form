@@ -9,9 +9,9 @@ export interface SelectAPIResponse {
 }
 
 export interface UserAPIPostData {
-    name?: string;
-    email?: string;
-    password?: string;
-    occupation?: string;
-    state?: string;
+    name: string;
+    email: string;
+    password: string;
+    occupation: string;
+    state: string;
 }
