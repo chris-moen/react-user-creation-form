@@ -8,7 +8,7 @@ const UserSuccess: FC<{
     resetHandler: MouseEventHandler<HTMLAnchorElement>;
 }> = ({ className, user, resetHandler }) => {
     return (
-        <div className={className}>
+        <div className={className} data-testid="success">
             <p>
                 <strong>{user.name}</strong><br/>
                 {user.email}<br /><br />
