@@ -5,7 +5,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "test": "jest --watch"
+    "test": "jest",
+    "test:watch": "jest test --watch"
   },
   "dependencies": {
     "@babel/runtime": "^7.16.7",
